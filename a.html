@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursor Image Movement</title>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cursor-img {
+    pointer-events: none;
+    width: 35%;
+    position: relative;
+    left: 30%;
+    height: auto;
+    z-index: 1; /* Ensure the cursor image is above other elements */
+}
+
+.circle-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    pointer-events: none; /* Ensure the container doesn't interfere with cursor events */
+    z-index: 3; /* Ensure the circle images are above the background image */
+}
+
+/* Circle Images */
+.circle-img1,
+.circle-img2,
+.circle-img3,
+.circle-img4,
+.circle-img5 {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 4; /* Set a higher z-index to make them visible in the forward direction */
+}
+
+.circle-img1 {
+    top: -442px;
+    left: 607px;
+}
+
+.circle-img2 {
+    top: -515px;
+    left: 682px;
+}
+
+.circle-img3 {
+    top: -506px;
+    left: 790px;
+}
+
+.circle-img4 {
+    top: -415px;
+    left: 713px;
+}
+
+.circle-img5 {
+    top: -417px;
+    left: 834px;
+}
+
+/* Background Image */
+.background-img1,
+.background-img2,
+.background-img3,
+.background-img4,
+.background-img5 {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url('https://img.hotimg.com/Group-13927.png');
+    background-size: cover;
+    border-radius: 50%;
+    z-index: 2; /* Set a lower z-index to move them to the background */
+    transition: transform 0.2s ease; /* Add a smooth transition effect */
+}
+
+.background-img1 {
+    top: -442px;
+    left: 607px;
+}
+
+.background-img2 {
+    top: -515px;
+    left: 682px;
+}
+
+.background-img3 {
+    top: -506px;
+    left: 790px;
+}
+
+.background-img4 {
+    top: -415px;
+    left: 713px;
+}
+
+.background-img5 {
+    top: -417px;
+    left: 834px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="https://img.hotimg.com/Group-13793-1.png" alt="Cursor Image" class="cursor-img">
+    <div class="circle-container" id="circle1">
+        <div class="circle-img1"></div>
+        <div class="background-img background-img1"></div>
+    </div>
+    <div class="circle-container" id="circle2">
+        <div class="circle-img2"></div>
+        <div class="background-img background-img2"></div>
+    </div>
+    <div class="circle-container" id="circle3">
+        <div class="circle-img3"></div>
+        <div class="background-img background-img3"></div>
+    </div>
+    <div class="circle-container" id="circle4">
+        <div class="circle-img4"></div>
+        <div class="background-img background-img4"></div>
+    </div>
+    <div class="circle-container" id="circle5">
+        <div class="circle-img5"></div>
+        <div class="background-img background-img5"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('mousemove', (e) => {
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+
+    const backgroundImgs = document.querySelectorAll('.background-img');
+
+    backgroundImgs.forEach(img => {
+        const imgRect = img.getBoundingClientRect();
+        const imgCenterX = imgRect.left + imgRect.width / 2;
+        const imgCenterY = imgRect.top + imgRect.height / 2;
+
+        const distanceX = mouseX - imgCenterX;
+        const distanceY = mouseY - imgCenterY;
+
+        const moveX = distanceX * 0.1; // Super fast speed: Set multiplier to 1
+        const moveY = distanceY * 0.1; // Super fast speed: Set multiplier to 1
+
+        img.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    });
+});
+</script>
+
+</body>
+</html>
